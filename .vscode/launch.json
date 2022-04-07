@@ -16,7 +16,7 @@
             "request": "launch",
             "mode": "executable",
             "preLaunchTask": "build",
-            "executable": "C:/Programillas/Engines/Godot_v3.4.4-stable_mono_win64/Godot_v3.4.4-stable_mono_win64.exe\r",
+            "executable": "C:/Programillas/Engines/Godot_v3_4_4/Godot_v3_4_4.exe",
             "executableArguments": [
                 "--path",
                 "${workspaceRoot}"
@@ -28,7 +28,7 @@
             "request": "launch",
             "mode": "executable",
             "preLaunchTask": "build",
-            "executable": "C:/Programillas/Engines/Godot_v3.4.4-stable_mono_win64/Godot_v3.4.4-stable_mono_win64.exe\r",
+            "executable": "C:/Programillas/Engines/Godot_v3_4_4/Godot_v3_4_4.exe",
             "executableArguments": [
                 "--path",
                 "${workspaceRoot}",
@@ -40,7 +40,7 @@
             "type": "godot-mono",
             "request": "attach",
             "address": "localhost",
-            "port": 2276
+            "port": 6007
         }
     ]
 }

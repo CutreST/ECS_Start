@@ -22,7 +22,7 @@ namespace Entities
         /// </remarks>
         /// </summary>
         public Dictionary<Type, IComponentNode> MyComponents { get; set; }
-  
+
 
         #endregion
 
@@ -45,10 +45,9 @@ namespace Entities
         /// </summary>
         public override void _EnterTree()
         {
-            base._EnterTree();
             this.MyComponents = new Dictionary<Type, IComponentNode>();
             // so, in order to automate this a little, on enter tree looks for the children.
-            this.AddIComponentChildren(this);           
+            this.AddIComponentChildren(this);
 
         }
 
@@ -56,20 +55,24 @@ namespace Entities
         /// Looks throug all the children and if the childrens is a <see cref="IComponentNode"/> then adds it to
         /// <see cref="Entity.MyComponents"/> and set the <see cref="IComponentNode.MyEntity"/> as this entity
         /// </summary>
-        private void AddIComponentChildren(in Node root){            
+        private void AddIComponentChildren(in Node root)
+        {
 
             IComponentNode componentNode;
             Node child;
-            for (int i = 0; i < root.GetChildCount(); i++){
+            for (int i = 0; i < root.GetChildCount(); i++)
+            {
                 child = root.GetChild(i);
                 componentNode = child as IComponentNode;
-                if(componentNode  != null){
+
+                if(child != null){
                     this.TryAddIComponentNode(componentNode);
-                    componentNode.MyEntity = this;
-                    //de cada objeto miraremos si sus hijos son también mierda de estas
-                    this.AddIComponentChildren(child);
                     Messages.Print("yeeloooow");
                 }
+
+                //de cada objeto miraremos si sus hijos son también mierda de estas
+                this.AddIComponentChildren(child);
+                
             }
         }
         #endregion
@@ -81,12 +84,12 @@ namespace Entities
         /// <param name="component">The component to add</param>
         /// <returns>Is the component succefully added?</returns>
         public bool TryAddIComponentNode<T>(in IComponentNode component) where T : IComponentNode
-        {            
+        {
             Type myType = typeof(T);
 
             if (MyComponents.ContainsKey(myType) == false)
             {
-                MyComponents.Add(myType, component);
+                this.AddIComponentToDictionary(component, myType);
                 return true;
             }
 
@@ -100,15 +103,22 @@ namespace Entities
         /// <returns>Is the component succefully added?</returns>
         public bool TryAddIComponentNode(in IComponentNode component)
         {
-            IComponentNode node = component as IComponentNode;
-            Type type = node.GetType();
+            Type type = component.GetType();
 
-            if(node != null && this.MyComponents.ContainsKey(type)){
-                this.MyComponents.Add(type, component);
-                return true;                
+            if (component != null && this.MyComponents.ContainsKey(type) == false)
+            {
+                this.AddIComponentToDictionary(component, type);
+                return true;
             }
 
             return false;
+        }
+
+        private void AddIComponentToDictionary(in IComponentNode component, in Type type)
+        {
+            this.MyComponents.Add(type, component);
+            component.OnStart();
+            component.MyEntity = this;
         }
 
         /// <summary>

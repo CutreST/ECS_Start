@@ -20,7 +20,7 @@ namespace Entities.Components
         /// <summary>
         /// Ready method
         /// </summary>
-        void Ontart();
+        void OnStart();
 
         /// <summary>
         /// Enter tree method

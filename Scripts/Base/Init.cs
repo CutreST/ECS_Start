@@ -13,6 +13,7 @@ namespace Base
     public class Init : Node
     {   
         private const bool CENTER_WINDOW = true;
+        private const bool CONSOLE = true;
 
         public override void _EnterTree()
         {
@@ -27,6 +28,7 @@ namespace Base
         { 
             // set the window centered
             this.CenterWindow();
+            MyConsole.IsOn = CONSOLE;
 
         }
 

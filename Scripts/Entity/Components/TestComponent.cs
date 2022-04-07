@@ -17,10 +17,10 @@ public class TestComponent : Node, IComponentNode
         //throw new NotImplementedException();
     }
 
-    public void Ontart()
+    public void OnStart()
     {
-        //throw new NotImplementedException();
-        GD.Print("Hola caracola, soy el Test Component"); 
+        GD.Print("Hola caracola, soy el Test Component");
+        MyConsole.Write("Prueba de consola 1");
     }
 
     public void Reset()

@@ -16,8 +16,13 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Init="*res://Scripts/Base/Init.cs"
 AppManagerGo="*res://Scripts/MySystems/AppManager_GO.cs"
+Init="*res://Scripts/Base/Init.cs"
+EmptyScript="*res://Scripts/EmptyScript.cs"
+
+[network]
+
+limits/tcp/connect_timeout_seconds=1800
 
 [physics]
 

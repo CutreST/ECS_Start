@@ -25,7 +25,6 @@ namespace MySystems
         /// Total time of the application.
         /// </summary>
         public static float Time { get; private set; }
-
         public static float Delta;
         public override void _EnterTree()
         {
