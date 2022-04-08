@@ -58,6 +58,13 @@ namespace Entities
             }
         }
 
+        public override void _ExitTree()
+        {
+            foreach(IComponentNode component in this.MyComponents.Values){
+                component.OnSetFree();
+            }
+        }
+
         /// <summary>
         /// Looks throug all the children and if the childrens is a <see cref="IComponentNode"/> then adds it to
         /// <see cref="Entity.MyComponents"/> and set the <see cref="IComponentNode.MyEntity"/> as this entity

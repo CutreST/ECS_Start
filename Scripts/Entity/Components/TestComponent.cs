@@ -1,6 +1,7 @@
 using Entities;
 using Entities.Components;
 using Godot;
+using MySystems;
 using System;
 
 public class TestComponent : Node, IComponentNode
@@ -14,7 +15,7 @@ public class TestComponent : Node, IComponentNode
 
     public void OnSetFree()
     {
-        //throw new NotImplementedException();
+        this.MyEntity = null;
     }
 
     public void OnStart()
@@ -24,9 +25,11 @@ public class TestComponent : Node, IComponentNode
         MyConsole.WriteWarning("Prueba de mensaje de warning");
         MyConsole.Write("Prueba de color custom", Colors.BlueViolet);
     }
-
+    
     public void Reset()
     {
         //throw new NotImplementedException();
     }
+
+    
 }

@@ -77,9 +77,3 @@ input_pass_on_modal_close_click = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Label" type="Label" parent="CanvasLayer2/Panel/TextHolder"]
-visible = false
-margin_right = 517.0
-margin_bottom = 14.0
-text = "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddda"
