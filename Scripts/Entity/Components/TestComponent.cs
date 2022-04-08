@@ -15,7 +15,7 @@ public class TestComponent : Node, IComponentNode
 
     public void OnSetFree()
     {
-        this.MyEntity = null;
+        MyConsole.Write("Disposing the component");
     }
 
     public void OnStart()
@@ -31,5 +31,5 @@ public class TestComponent : Node, IComponentNode
         //throw new NotImplementedException();
     }
 
-    
+
 }

@@ -29,6 +29,8 @@ namespace Base
             // set the window centered
             this.CenterWindow();
             MyConsole.IsOn = CONSOLE;
+            //when finished, dispose the node, we don't need it
+            base.QueueFree();
 
         }
 

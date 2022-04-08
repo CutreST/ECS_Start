@@ -41,7 +41,8 @@ namespace Entities
 
         #region Godot Methods
         /// <summary>
-        /// Methor called when this entity enters the tree
+        /// Method called when this entity enters the tree.
+        /// It sets all the components and call foreach one <see cref="IComponentNode.OnAwake"/>
         /// </summary>
         public override void _EnterTree()
         {
@@ -51,6 +52,10 @@ namespace Entities
 
         }
 
+        /// <summary>
+        /// Method called when all the next frame after entering the tree
+        /// It sets all the components and call foreach one <see cref="IComponentNode.OnStart"/>
+        /// </summary>
         public override void _Ready()
         {
             foreach(IComponentNode component in this.MyComponents.Values){
@@ -58,6 +63,10 @@ namespace Entities
             }
         }
 
+        /// <summary>
+        /// Method called when this entity exitsthe tree.
+        /// It sets all the components and call foreach one <see cref="IComponentNode.OnSetFree/>
+        /// </summary>
         public override void _ExitTree()
         {
             foreach(IComponentNode component in this.MyComponents.Values){

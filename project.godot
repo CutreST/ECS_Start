@@ -18,7 +18,6 @@ config/icon="res://icon.png"
 
 AppManagerGo="*res://Scripts/MySystems/AppManager_GO.cs"
 Init="*res://Scripts/Base/Init.cs"
-EmptyScript="*res://Scripts/EmptyScript.cs"
 
 [editor_plugins]
 
