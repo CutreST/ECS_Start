@@ -19,8 +19,10 @@ public class TestComponent : Node, IComponentNode
 
     public void OnStart()
     {
-        GD.Print("Hola caracola, soy el Test Component");
-        MyConsole.Write("Prueba de consola 1");
+        MyConsole.Write("Prueba de mensaje default");
+        MyConsole.WriteError("Prueba de mensaje de error");
+        MyConsole.WriteWarning("Prueba de mensaje de warning");
+        MyConsole.Write("Prueba de color custom", Colors.BlueViolet);
     }
 
     public void Reset()

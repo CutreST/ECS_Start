@@ -30,8 +30,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 TEXT_HOLDER_CACHE = 5
-DISPLAY_TIME = 0.1
+DISPLAY_TIME = 0.8
 FONT = ExtResource( 2 )
+COLOR_DEFAULT = Color( 1, 1, 1, 1 )
+COLOR_WARNING = Color( 0.592157, 0.792157, 0.0352941, 1 )
+COLOR_ERROR = Color( 1, 0, 0, 1 )
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 100

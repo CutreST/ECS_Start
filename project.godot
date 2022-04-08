@@ -20,6 +20,10 @@ AppManagerGo="*res://Scripts/MySystems/AppManager_GO.cs"
 Init="*res://Scripts/Base/Init.cs"
 EmptyScript="*res://Scripts/EmptyScript.cs"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/mono_debugger/plugin.cfg" )
+
 [network]
 
 limits/tcp/connect_timeout_seconds=1800

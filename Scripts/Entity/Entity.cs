@@ -51,6 +51,13 @@ namespace Entities
 
         }
 
+        public override void _Ready()
+        {
+            foreach(IComponentNode component in this.MyComponents.Values){
+                component.OnStart();
+            }
+        }
+
         /// <summary>
         /// Looks throug all the children and if the childrens is a <see cref="IComponentNode"/> then adds it to
         /// <see cref="Entity.MyComponents"/> and set the <see cref="IComponentNode.MyEntity"/> as this entity
@@ -67,7 +74,6 @@ namespace Entities
 
                 if(child != null){
                     this.TryAddIComponentNode(componentNode);
-                    Messages.Print("yeeloooow");
                 }
 
                 //de cada objeto miraremos si sus hijos son también mierda de estas
@@ -117,7 +123,7 @@ namespace Entities
         private void AddIComponentToDictionary(in IComponentNode component, in Type type)
         {
             this.MyComponents.Add(type, component);
-            component.OnStart();
+            component.OnAwake();
             component.MyEntity = this;
         }
 

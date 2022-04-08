@@ -84,24 +84,34 @@ namespace Godot
         /// </summary>
         private float time;
 
+        /// <summary>
+        /// Default color of the messages written in the console.
+        /// Used on <see cref="ConsoleUI.WriteDefaultMessage(in string)"
+        /// </summary>
+        [Export]
+        private readonly Color COLOR_DEFAULT;
+
+        /// <summary>
+        /// The color of the Error messages written in the console.
+        /// Used on <see cref="ConsoleUI.WriteErrorMessage(in string)"
+        /// </summary>
+        [Export]
+        private readonly Color COLOR_WARNING;
+
+        /// <summary>
+        /// The color of the Error messages written in the console.
+        /// Used on <see cref="ConsoleUI.WriteWarningMessage(in string)"
+        /// </summary>
+        [Export]
+        private readonly Color COLOR_ERROR;
+
+
+        /// <summary>
+        /// Initialices the visual console, setting all the children.
+        /// OJU! call this after inserting the children. It doesn't work
+        /// with _EnterTree
+        /// </summary>
         public void Init(){
-            GD.Print("ConsoleUI entered the tree");
-
-            this._textHolder = this.TryGetFromChild_Rec<Control>(TEXT_HOLDER_NAME);
-
-            if (_textHolder != null)
-            {
-                Messages.Print("Text holder found!!!");
-            }
-
-            this.LabelListsInit();
-            index = 0;
-
-            this._background = this.TryGetFromChild_Rec<Control>(STATIC_CONTROL_NAME);
-            base.SetProcess(false);
-        }
-        public override void _EnterTree()
-        {
             GD.Print("ConsoleUI entered the tree");
 
             this._textHolder = this.TryGetFromChild_Rec<Control>(TEXT_HOLDER_NAME);
@@ -120,8 +130,9 @@ namespace Godot
 
         public override void _Ready()
         {
-            Console.WriteLine("Test line from console to console");
+            MyConsole.Write("Damm, this is MY console");
         }
+
         /// <summary>
         /// Initializes the <see cref="_unusedLabels"/>, <see cref="_usedLabels"/> and <see cref="_toWrite"/>. Also, populates
         /// the <see cref="_unusedLabels"/> with a <see cref="TEXT_HOLDER_CACHE"/> number of labels
@@ -157,6 +168,22 @@ namespace Godot
         int turn = 1;
         #endregion
 
+
+        # region Write methods 
+
+        public void WriteDefaultMessage(in string message){
+            this.WriteOnConsole(message, COLOR_DEFAULT);
+        }
+
+        public void WriteWarningMessage(in string message){
+            this.WriteOnConsole(message, COLOR_WARNING);
+        }
+
+        public void WriteErrorMessage(in string message){
+            this.WriteOnConsole(message, COLOR_ERROR);
+        }
+
+
         /// <summary>
         /// Writes a message with a font color on the console
         /// </summary>
@@ -165,6 +192,7 @@ namespace Godot
         public void WriteOnConsole(in string message, in Color color)
         {
             Label label;
+
             //check for used and unused
             if (_unusedLabels.Count > 0)
             {
@@ -178,9 +206,23 @@ namespace Godot
 
 
             _usedLabels.Add(label);
-
-            //basic settigns (TODO: proper method)
             _textHolder.AddChild(label);
+            this.SetLabel(ref label, message, color);
+
+            //add to the queue
+            _toWrite.Enqueue(label);            
+
+            // We use the godot process BUT
+            // this has to go to the appUpdate, somehow
+            base.SetProcess(true);
+            // set the timer
+
+        }
+
+        # endregion
+
+
+        private void SetLabel(ref Label label, in string message, in Color color){
             label.Name = "Label_num_" + index;
             label.Autowrap = true;
             label.Text = message;
@@ -188,16 +230,6 @@ namespace Godot
             label.VisibleCharacters = 0;
             index++;
             label.SelfModulate = color;
-            //this.PutLabelOnPosition(label);
-
-            //add to the queue
-            _toWrite.Enqueue(label);
-            if(_toWrite.Count == 1){
-                time2 = DISPLAY_TIME;
-            }
-            base.SetProcess(true);
-            //add to the update of the current visualsystem 
-            //System_Manager.GetInstance(this).currentSys.AddToUpdate(this);
         }
 
         /// <summary>
@@ -282,12 +314,12 @@ namespace Godot
         {
             if (_toWrite.Count > 0)
             {
-                time += delta;
+                //time += delta;
 
-                if (time > DISPLAY_TIME)
+                if (AppManager_GO.Time > time)
                 {
                     this.PutLabelOnPosition(_toWrite.Dequeue());
-                    time = 0;
+                    time = AppManager_GO.Time + DISPLAY_TIME;
                 }
             }
             else
